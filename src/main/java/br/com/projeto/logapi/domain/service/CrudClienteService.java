@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CrudClienteService {
@@ -20,8 +19,9 @@ public class CrudClienteService {
         return clienteRepository.findAll();
     }
 
-    public Optional<Cliente> pegaCliente(Long id) {
-        return clienteRepository.findById(id);
+    public Cliente pegaCliente(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new DomainException("Cliente não encontrado!"));
     }
 
     @Transactional

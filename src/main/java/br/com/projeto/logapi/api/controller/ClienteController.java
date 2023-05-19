@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
@@ -35,19 +34,9 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getCliente(@PathVariable("id") Long id) {
+    public Cliente getCliente(@PathVariable("id") Long id) {
 
-        return clienteService.pegaCliente(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-
-        // Optional<Cliente> clienteOptional = clienteRepository.findById(id);
-
-        // if (!clienteOptional.isPresent()) {
-        // return ResponseEntity.notFound().build();
-        // }
-
-        // return ResponseEntity.ok(clienteOptional.get());
+        return clienteService.pegaCliente(id);
     }
 
     @PostMapping
@@ -60,11 +49,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> atulalizaCliente(@PathVariable("id") Long id, @Valid @RequestBody Cliente cliente) {
 
-        Optional<Cliente> pegaCliente = clienteService.pegaCliente(id);
-
-        if (!pegaCliente.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
+        clienteService.pegaCliente(id);
 
         cliente.setId(id);
         cliente = clienteService.salvar(cliente);
@@ -75,10 +60,8 @@ public class ClienteController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deletaCliente(@PathVariable("id") Long id) {
-        Optional<Cliente> pegaCliente = clienteService.pegaCliente(id);
-        if (!pegaCliente.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
+
+        clienteService.pegaCliente(id);
 
         clienteService.excluir(id);
 
