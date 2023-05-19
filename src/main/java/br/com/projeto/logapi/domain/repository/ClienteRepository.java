@@ -1,14 +1,16 @@
-package br.com.projeto.logapi.repository;
-
-import br.com.projeto.logapi.models.Cliente;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+package br.com.projeto.logapi.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import br.com.projeto.logapi.domain.models.Cliente;
+
 @Repository
+
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     List<Cliente> findByNomeContaining(String nome);
-    
+
 }
