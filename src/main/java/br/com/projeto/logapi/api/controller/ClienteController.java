@@ -1,7 +1,10 @@
 package br.com.projeto.logapi.api.controller;
 
-import br.com.projeto.logapi.domain.models.Cliente;
-import br.com.projeto.logapi.domain.service.CrudClienteService;
+import java.util.List;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
-import java.util.List;
+import br.com.projeto.logapi.domain.models.Cliente;
+import br.com.projeto.logapi.domain.service.CrudClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -47,7 +48,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> atulalizaCliente(@PathVariable("id") Long id, @Valid @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atulalizaCliente(@PathVariable("id") Long id,@Valid @RequestBody Cliente cliente) {
 
         clienteService.pegaCliente(id);
 
